@@ -28,11 +28,9 @@ const Footer = () => {
           </p>
         </div>
       </div>
-      <div className='container mx-auto relative flex justify-evenly pb-10'>
-        <div className='w-4/12'>
-          <div className="border-t w-full mt-2.5 border-gray-500"></div>
-        </div>
-        <div className='flex text-3xl gap-3'>
+      <div className='container mx-auto flex justify-evenly space-x-2 mt-4 pb-10'>
+        <span className='bg-gray-500 h-px flex-grow t-2 relative top-3'></span>
+        <div className='flex text-3xl gap-3 px-5'>
           <a
             href='https://www.twitter.com/'
             target='_blank'
@@ -62,9 +60,7 @@ const Footer = () => {
             <AiFillLinkedin />
           </a>
         </div>
-        <div className="w-4/12">
-          <div className="border-t w-full mt-2.5 border-gray-500"></div>
-        </div>
+        <span className='bg-gray-500 h-px flex-grow t-2 relative top-3'></span>
       </div>
     </div>
   );
