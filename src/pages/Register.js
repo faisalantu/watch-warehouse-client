@@ -27,10 +27,15 @@ const Register = () => {
     passwordAuthError,
   ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
-  let from = location.state?.from?.pathname || "/";
-  if (googleAuthUser || passwordAuthUser) {
-    navigate(from, { replace: true });
-  }
+  /*eslint-disable */
+  useEffect(() => {
+    let from = location.state?.from?.pathname || "/";
+    if (googleAuthUser || passwordAuthUser) {
+      navigate(from, { replace: true });
+    }
+  }, [googleAuthUser, passwordAuthUser]);
+  /*eslint-enable */
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
