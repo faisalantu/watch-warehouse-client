@@ -8,13 +8,15 @@ import Register from "./pages/Register";
 import AuthRequired from "./components/AuthRequired";
 import Inventory from "./pages/Inventory";
 import NotFound from "./pages/NotFound";
+import MyItems from "./pages/MyItems";
+import AddItem from "./pages/AddItem";
 
 function App() {
   return (
     <div>
       <Toaster />
+      <Header />
       <div className='container mx-auto px-2 lg:px-0'>
-        <Header />
         <Routes>
           <Route path='/' element={<Home />}></Route>
           <Route path='/login' element={<Login />}></Route>
@@ -24,6 +26,22 @@ function App() {
             element={
               <AuthRequired>
                 <Inventory />
+              </AuthRequired>
+            }
+          ></Route>
+          <Route
+            path='/myitems'
+            element={
+              <AuthRequired>
+                <MyItems />
+              </AuthRequired>
+            }
+          ></Route>
+          <Route
+            path='/additem'
+            element={
+              <AuthRequired>
+                <AddItem />
               </AuthRequired>
             }
           ></Route>
