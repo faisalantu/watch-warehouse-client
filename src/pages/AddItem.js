@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../axiosConfig";
 import React, { useRef, useState } from "react";
 import auth from "../firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -15,7 +15,6 @@ const AddItem = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
     const data = {
       title: titleRef.current.value,
       imageUrl: imageUrlRef.current.value,
@@ -30,7 +29,7 @@ const AddItem = () => {
       setFetchingProduct(true)
       toast.loading("Creating Product");
       const res = await axios.post(
-        "http://localhost:5000/api/product",
+        "/product",
          data 
         
       );
