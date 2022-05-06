@@ -3,6 +3,7 @@ import axios from "../axiosConfig";
 import { MdOutlineEdit } from "react-icons/md";
 import toast from "react-hot-toast";
 import DeleteModal from "../components/DeleteModal";
+import { Link } from "react-router-dom";
 
 const AllProducts = () => {
   // eslint-disable-next-line
@@ -51,13 +52,13 @@ const AllProducts = () => {
             <th scope='col' className='px-6 py-3'>
               Product name
             </th>
-            <th scope='col' className='px-6 py-3'>
+            <th scope='col' className='px-6 py-3 hidden md:block'>
               Price
             </th>
             <th scope='col' className='px-6 py-3'>
               Quantity
             </th>
-            <th scope='col' className='px-6 py-3'>
+            <th scope='col' className='px-6 py-3  hidden md:block'>
               user
             </th>
             <th scope='col' className='px-6 py-3'>
@@ -76,16 +77,16 @@ const AllProducts = () => {
                     >
                       {product?.title && product?.title}
                     </th>
-                    <td className='px-6 py-4'>${product?.price && product?.price}</td>
+                    <td className='px-6 py-4 hidden md:block '>${product?.price && product?.price}</td>
                     <td className='px-6 py-4'>{product?.quantity && product?.quantity}</td>
-                    <td className='px-6 py-4'>{product?.displayName && product?.displayName}</td>
+                    <td className='px-6 py-4  hidden md:block'>{product?.displayName && product?.displayName}</td>
                     <td className='px-6 py-4 text-right'>
-                      <button className='font-medium text-gray-800 bg-yellow-300 py-1 px-2 text-md rounded mx-1'>
+                      <Link to={`/inventory/${product._id}`} className='inline-block font-medium text-gray-800 bg-yellow-300 py-1 px-2 text-md rounded mx-1'>
                         <div className='flex justify-center items-center'>
                           <MdOutlineEdit />{" "}
                           <span className='text-xs'>Edit</span>
                         </div>
-                      </button>
+                      </Link>
                       <DeleteModal fetchProducts={fetchProducts} pid={product._id}/>
                       
                     </td>

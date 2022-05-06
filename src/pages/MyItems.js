@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import auth from "../firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
 import DeleteModal from "../components/DeleteModal";
+import { Link } from "react-router-dom";
 
 const MyItems = () => {
   const [user] = useAuthState(auth);
@@ -83,12 +84,12 @@ const MyItems = () => {
                     <td className='px-6 py-4'>{product?.quantity && product?.quantity}</td>
                     <td className='px-6 py-4'>{product?.displayName && product?.displayName}</td>
                     <td className='px-6 py-4 text-right'>
-                      <button className='font-medium text-gray-800 bg-yellow-300 py-1 px-2 text-md rounded mx-1'>
+                      <Link to={`/inventory/${product._id}`} className='inline-block font-medium text-gray-800 bg-yellow-300 py-1 px-2 text-md rounded mx-1'>
                         <div className='flex justify-center items-center'>
                           <MdOutlineEdit />{" "}
                           <span className='text-xs'>Edit</span>
                         </div>
-                      </button>
+                      </Link>
                       <DeleteModal fetchProducts={fetchProducts} pid={product._id}/>
                       
                     </td>
