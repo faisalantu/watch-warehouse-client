@@ -10,7 +10,7 @@ const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [user] = useAuthState(auth);
   return (
-    <div className=" bg-gray-50">
+    <div className=' bg-gray-50'>
       <nav className='container mx-auto text-gray-700 '>
         <div className='justify-between py-4 hidden md:flex'>
           <div className='font-semibold text-xl flex items-center'>
@@ -25,6 +25,15 @@ const Header = () => {
             </CustomLink>
             {user ? (
               <div className='flex justify-center items-center'>
+                <CustomLink className='mx-1 px-1' to='/myitems'>
+                  My Items
+                </CustomLink>
+                <CustomLink className='mx-1 px-1' to='/allproduct'>
+                  All Items
+                </CustomLink>
+                <CustomLink className='mx-1 px-1' to='/additem'>
+                  Add Item
+                </CustomLink>
                 <button
                   onClick={() => {
                     signOut(auth);
@@ -33,12 +42,6 @@ const Header = () => {
                 >
                   logout{" "}
                 </button>
-                <CustomLink className='mx-1 px-1' to='/myitems'>
-                  My Items
-                </CustomLink>
-                <CustomLink className='mx-1 px-1' to='/additem'>
-                  Add Item
-                </CustomLink>
               </div>
             ) : (
               <CustomLink className='mx-1 px-1' to='/login'>
@@ -63,16 +66,22 @@ const Header = () => {
             </button>
           </div>
           {openMenu ? (
-            <div className={`flex flex-col mt-4`}>
+            <div className={`flex flex-col mt-4 gap-1`}>
               <CustomLink to='/'>Home</CustomLink>
               <CustomLink to='/about'>About</CustomLink>
+
               {user ? (
-                <div
-                  onClick={() => {
-                    signOut(auth);
-                  }}
-                >
-                  logout{" "}
+                <div className="flex flex-col gap-1">
+                  <CustomLink to='/myitems'>My Items</CustomLink>
+                  <CustomLink to='/allproduct'>All Items</CustomLink>
+                  <CustomLink to='/additem'>Add Item</CustomLink>
+                  <div
+                    onClick={() => {
+                      signOut(auth);
+                    }}
+                  >
+                    logout{" "}
+                  </div>
                 </div>
               ) : (
                 <CustomLink to='/login'>login</CustomLink>
