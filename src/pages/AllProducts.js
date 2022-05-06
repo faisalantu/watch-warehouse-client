@@ -2,12 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "../axiosConfig";
 import { MdOutlineEdit } from "react-icons/md";
 import toast from "react-hot-toast";
-import auth from "../firebase.init";
-import { useAuthState } from "react-firebase-hooks/auth";
 import DeleteModal from "../components/DeleteModal";
 
-const MyItems = () => {
-  const [user] = useAuthState(auth);
+const AllProducts = () => {
   // eslint-disable-next-line
   const [fetchingProduct, setFetchingProduct] = useState(false);
   const [products, setProducts] = useState([]);
@@ -18,7 +15,7 @@ const MyItems = () => {
   const fetchProducts = async ()=>{
     try {
       setFetchingProduct(true);
-      const res = await axios.get(`/product?userEmail=${user?.email}&skip=${page*10}`);
+      const res = await axios.get(`/product?skip=${page*10}`);
       setFetchingProduct(false);
       setProducts(res.data);
     } catch (err) {
@@ -35,7 +32,7 @@ const MyItems = () => {
     (async function () {
       try {
         setFetchingProduct(true);
-        const res = await axios.get(`/product/userproductcount?userEmail=${user?.email}`);
+        const res = await axios.get(`/product/productcount`);
         setFetchingProduct(false);
         setTotalPage(res.data.totalProducts);
       } catch (err) {
@@ -128,4 +125,4 @@ const MyItems = () => {
   );
 };
 
-export default MyItems;
+export default AllProducts;
