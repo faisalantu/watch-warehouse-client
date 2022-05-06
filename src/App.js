@@ -10,6 +10,7 @@ import Inventory from "./pages/Inventory";
 import NotFound from "./pages/NotFound";
 import MyItems from "./pages/MyItems";
 import AddItem from "./pages/AddItem";
+import AllProducts from "./pages/AllProducts";
 
 function App() {
   return (
@@ -42,6 +43,14 @@ function App() {
             element={
               <AuthRequired>
                 <AddItem />
+              </AuthRequired>
+            }
+          ></Route>
+          <Route
+            path='/allproduct'
+            element={
+              <AuthRequired>
+                <AllProducts />
               </AuthRequired>
             }
           ></Route>
