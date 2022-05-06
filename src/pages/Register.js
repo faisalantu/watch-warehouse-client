@@ -8,6 +8,7 @@ import {
   useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
+import { useUpdateProfile } from "react-firebase-hooks/auth";
 import spinnerImg from "../assets/spinner.svg";
 
 const Register = () => {
@@ -17,6 +18,7 @@ const Register = () => {
   const email = useRef("");
   const password1 = useRef("");
   const password2 = useRef("");
+  const fname = useRef("");
 
   const [signInWithGoogle, googleAuthUser, googleAuthLoading, googleAuthError] =
     useSignInWithGoogle(auth);
@@ -26,16 +28,19 @@ const Register = () => {
     passowrdAuthLoading,
     passwordAuthError,
   ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
-
+  const [updateProfile, updating, errorUpdating] = useUpdateProfile(auth);
   /*eslint-disable */
   useEffect(() => {
     let from = location.state?.from?.pathname || "/";
     if (googleAuthUser || passwordAuthUser) {
-      navigate(from, { replace: true });
+      if(!updating){
+        navigate(from, { replace: true });
+      }
     }
-  }, [googleAuthUser, passwordAuthUser]);
+  }, [googleAuthUser, passwordAuthUser,updating]);
+ 
   /*eslint-enable */
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -43,14 +48,25 @@ const Register = () => {
       email: email.current.value,
       passowrd1: password1.current.value,
       password2: password2.current.value,
+      fullName: fname.current.value,
     };
     if (userData.passowrd1 === userData.password2) {
       if (userData.passowrd1.length > 5) {
-        try {
-          createUserWithEmailAndPassword(userData.email, userData.passowrd1);
-          console.log(passwordAuthUser);
-        } catch (err) {
-          //handle error
+        if (userData.fullName.length > 0) {
+          try {
+            createUserWithEmailAndPassword(userData.email, userData.passowrd1).then(()=>{
+              console.log(userData);
+              updateProfile({
+              displayName:userData.fullName,
+            });
+            })
+            
+          } catch (err) {
+            console.log(err);
+            //handle error
+          }
+        } else {
+          toast.error("Enter your full name");
         }
       } else {
         toast.error("Password should be at least 6 charecter");
@@ -68,8 +84,10 @@ const Register = () => {
       toast.error(googleAuthError?.message);
     } else if (passwordAuthError) {
       toast.error(passwordAuthError?.message);
+    }else if (errorUpdating) {
+      toast.error(errorUpdating?.message);
     }
-  }, [googleAuthError, passwordAuthError]);
+  }, [googleAuthError, passwordAuthError,errorUpdating]);
 
   return (
     <div className='flex flex-col md:flex-row py-10 my-10'>
@@ -79,6 +97,15 @@ const Register = () => {
       <div className='lg:w-6/12 text-gray-700 mt-10 md:mt-0 p-3 md:p-0'>
         <div className='lg:w-6/12 mx-auto'>
           <form onSubmit={handleSubmit}>
+            <div className='mb-6'>
+              <input
+                required
+                type='text'
+                className='form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-300 focus:outline-none'
+                placeholder='Full Name'
+                ref={fname}
+              />
+            </div>
             <div className='mb-6'>
               <input
                 required
