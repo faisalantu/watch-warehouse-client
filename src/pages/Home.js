@@ -3,13 +3,13 @@ import Banner from "../components/Banner";
 import ProductCard from "../components/ProductCard";
 import plant from "../assets/plant.png"
 import clock from "../assets/clock.png"
-import axios from "axios";
+import axios from "../axiosConfig";
 
 const Home = () => {
   const [products, setProducts] = useState([])
   useEffect(() => {
     const fetchData = async ()=>{
-      const res = await axios.get('http://localhost:5000/api/product/limited')
+      const res = await axios.get('/product/limited')
       setProducts(res.data)
     }
     fetchData()
