@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import ManageProductCard from "../components/ManageProductCard";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "../axiosConfig";
 import toast from "react-hot-toast";
 
@@ -23,30 +23,38 @@ const Inventory = () => {
   const reduceQuantity = async () => {
     let tempQuantity = products.quantity - 1;
     try {
-      const res = await axios.put(`/product/quantity?productId=${products._id}`,{
-        quantity:tempQuantity
-      });
+      const res = await axios.put(
+        `/product/quantity?productId=${products._id}`,
+        {
+          quantity: tempQuantity,
+        }
+      );
       setProducts(res.data);
-      toast.success("successfuly deivred")
+      toast.success("successfuly deivred");
     } catch (err) {
       toast.error("something went wrong");
     }
   };
 
-  const handleSubmit = async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const updatedQuantity = totalQuantity.current.value;
+    let tempQuantity = products.quantity;
+    const updatedQuantity =
+      Number(tempQuantity) + Number(totalQuantity.current.value);
     try {
-      const res = await axios.put(`/product/quantity?productId=${products._id}`,{
-        quantity:updatedQuantity
-      });
+      const res = await axios.put(
+        `/product/quantity?productId=${products._id}`,
+        {
+          quantity: updatedQuantity,
+        }
+      );
       setProducts(res.data);
-      totalQuantity.current.value=""
-      toast.success("successfuly updated")
+      totalQuantity.current.value = "";
+      toast.success("successfuly updated");
     } catch (err) {
       toast.error("something went wrong");
     }
-  }
+  };
 
   useEffect(() => {
     fetchPost();
@@ -95,12 +103,22 @@ const Inventory = () => {
               <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
                 <button
                   type='submit'
-                  className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-gray-700 bg-green-300 hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                  className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-gray-700 bg-green-300 hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500'
                 >
-                  Save
+                  Restock
                 </button>
               </div>
             </form>
+            <div className='md:w-8/12 shadow-lg border border-gray-50 overflow-hidden rounded-lg p-5'>
+              <div className='px-4 py-3 bg-gray-50 text-center sm:px-6 mt-5'>
+                <Link
+                  to={"/allproduct"}
+                  className='flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-gray-700 bg-green-300 hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500'
+                >
+                  Manage All Inventory
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       ) : (
