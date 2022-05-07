@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import loginImg from "../assets/loginV2.svg";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -10,8 +10,10 @@ import {
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
+import axios from "../axiosConfig"
 
 const Login = () => {
+  const [isToken, setIsToken] = useState(false)
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,7 +36,15 @@ const Login = () => {
   const [sendPasswordResetEmail, passwordResetLoading, passwordResetError] =
     useSendPasswordResetEmail(auth);
   /*eslint-enable */
-  const handleSingin = (e) => {
+
+
+  const createToken = async(email)=>{
+    const {data} = await axios.post("/auth/signin",{email})
+    localStorage.setItem('accessToken',data)
+    setIsToken(true)
+  }
+
+  const handleSingin = async (e) => {
     e.preventDefault();
     const userData = {
       email: emailRef.current.value,
@@ -44,7 +54,8 @@ const Login = () => {
     if (userData.password.length < 6) {
       toast.error("passowrd should be more then 6 charecter");
     } else {
-      signInWithEmailAndPassword(userData.email, userData.password);
+      await signInWithEmailAndPassword(userData.email, userData.password);
+      createToken(userData.email)
     }
   };
 
@@ -63,10 +74,14 @@ const Login = () => {
   /*eslint-disable */
   useEffect(() => {
     let from = location.state?.from?.pathname || "/";
-    if (googleAuthUser || passwordAuthUser) {
+    if(googleAuthUser){
+      console.log(googleAuthUser);
+      createToken(googleAuthUser.user.email)
+    }
+    if (googleAuthUser || passwordAuthUser || isToken) {
       navigate(from, { replace: true });
     }
-  }, [googleAuthUser, passwordAuthUser]);
+  }, [googleAuthUser, passwordAuthUser,isToken]);
   /*eslint-enable */
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import registerImg from "../assets/register.svg";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -10,15 +10,24 @@ import {
 } from "react-firebase-hooks/auth";
 import { useUpdateProfile } from "react-firebase-hooks/auth";
 import spinnerImg from "../assets/spinner.svg";
+import axios from '../axiosConfig'
+
 
 const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isToken, setIsToken] = useState(false)
 
   const email = useRef("");
   const password1 = useRef("");
   const password2 = useRef("");
   const fname = useRef("");
+
+  const createToken = async(email)=>{
+    const {data} = await axios.post("/auth/signin",{email})
+    localStorage.setItem('accessToken',data)
+    setIsToken(true)
+  }
 
   const [signInWithGoogle, googleAuthUser, googleAuthLoading, googleAuthError] =
     useSignInWithGoogle(auth);
@@ -32,12 +41,15 @@ const Register = () => {
   /*eslint-disable */
   useEffect(() => {
     let from = location.state?.from?.pathname || "/";
-    if (googleAuthUser || passwordAuthUser) {
+    if (googleAuthUser || passwordAuthUser|| isToken) {
+      if(googleAuthUser){
+        createToken(googleAuthUser.user.email)
+      }
       if(!updating){
         navigate(from, { replace: true });
       }
     }
-  }, [googleAuthUser, passwordAuthUser,updating]);
+  }, [googleAuthUser, passwordAuthUser,updating,isToken]);
  
   /*eslint-enable */
 
@@ -59,6 +71,7 @@ const Register = () => {
               updateProfile({
               displayName:userData.fullName,
             });
+            createToken(userData.email)
             })
             
           } catch (err) {
