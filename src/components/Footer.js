@@ -8,14 +8,17 @@ const Footer = () => {
     <div className='bg-gray-700 text-white p-3 md:p-0 mt-10'>
       <div className='container mx-auto pt-20 pb-10  flex flex-col-reverse md: md:flex-row-reverse justify-center items-center md:justify-evenly'>
         <div className='flex md:flex-col mt-5 md:mt-0 md:border-l border-gray-500'>
-          <Link className='mx-1 px-1' to='/'>
+          <Link className='mx-1 px-1 hover:text-green-400' to='/'>
             Home
           </Link>
-          <Link className='mx-1 px-1' to='/myitems'>
-            My Items
-          </Link>
-          <Link className='mx-1 px-1' to='/blogs'>
+          <Link className='mx-1 px-1 hover:text-green-400' to='/blogs'>
             Blogs
+          </Link>
+          <Link className='mx-1 px-1 hover:text-green-400' to='/about'>
+            About Us
+          </Link>
+          <Link className='mx-1 px-1 hover:text-green-400' to='/login'>
+            Login
           </Link>
         </div>
         <div className='flex flex-col items-center justify-center text-center mb-5 md:mb-0 md:block'>
@@ -32,6 +35,7 @@ const Footer = () => {
         <span className='bg-gray-500 h-px flex-grow t-2 relative top-3'></span>
         <div className='flex text-3xl gap-3 px-5'>
           <a
+            className='hover:text-green-400'
             href='https://www.twitter.com/'
             target='_blank'
             rel='noopener noreferrer'
@@ -39,6 +43,7 @@ const Footer = () => {
             <TiSocialTwitter />
           </a>
           <a
+            className='hover:text-green-400'
             href='https://www.instagram.com/'
             target='_blank'
             rel='noopener noreferrer'
@@ -46,6 +51,7 @@ const Footer = () => {
             <AiFillInstagram />
           </a>
           <a
+            className='hover:text-green-400'
             href='https://www.facebook.com/'
             target='_blank'
             rel='noopener noreferrer'
@@ -53,6 +59,7 @@ const Footer = () => {
             <FaFacebookSquare />
           </a>
           <a
+            className='hover:text-green-400'
             href='https://www.linkedin.com/'
             target='_blank'
             rel='noopener noreferrer'

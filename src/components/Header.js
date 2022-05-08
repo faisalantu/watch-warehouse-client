@@ -20,8 +20,11 @@ const Header = () => {
             <CustomLink className='mx-1 px-1' to='/'>
               Home
             </CustomLink>
+            <CustomLink className='mx-1 px-1' to='/blog'>
+              Blog
+            </CustomLink>
             <CustomLink className='mx-1 px-1' to='/about'>
-              About
+              About Us
             </CustomLink>
             {user ? (
               <div className='flex justify-center items-center'>
@@ -29,7 +32,7 @@ const Header = () => {
                   My Items
                 </CustomLink>
                 <CustomLink className='mx-1 px-1' to='/allproduct'>
-                  All Items
+                  All Products
                 </CustomLink>
                 <CustomLink className='mx-1 px-1' to='/additem'>
                   Add Item
@@ -68,12 +71,13 @@ const Header = () => {
           {openMenu ? (
             <div className={`flex flex-col mt-4 gap-1`}>
               <CustomLink to='/'>Home</CustomLink>
-              <CustomLink to='/about'>About</CustomLink>
+              <CustomLink to='/blog'>Blog</CustomLink>
+              <CustomLink to='/about'>AboutUS</CustomLink>
 
               {user ? (
                 <div className="flex flex-col gap-1">
                   <CustomLink to='/myitems'>My Items</CustomLink>
-                  <CustomLink to='/allproduct'>All Items</CustomLink>
+                  <CustomLink to='/allproduct'>All Products</CustomLink>
                   <CustomLink to='/additem'>Add Item</CustomLink>
                   <div
                     onClick={() => {
