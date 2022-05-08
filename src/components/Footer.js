@@ -17,9 +17,6 @@ const Footer = () => {
           <Link className='mx-1 px-1 hover:text-green-400' to='/about'>
             About Us
           </Link>
-          <Link className='mx-1 px-1 hover:text-green-400' to='/login'>
-            Login
-          </Link>
         </div>
         <div className='flex flex-col items-center justify-center text-center mb-5 md:mb-0 md:block'>
           <h2 className='font-semibold text-2xl flex items-center mb-3'>
