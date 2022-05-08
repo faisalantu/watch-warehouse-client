@@ -79,7 +79,7 @@ const AllProducts = () => {
                   user
                 </th>
                 <th scope='col' className='px-6 py-3'>
-                  <span className='sr-only'>Edit</span>
+                  Edit
                 </th>
               </tr>
             </thead>
@@ -93,7 +93,7 @@ const AllProducts = () => {
                       >
                         <th
                           scope='row'
-                          className='px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap'
+                          className='px-6 py-4 font-medium text-gray-900 dark:text-white'
                         >
                           {product?.title && product?.title}
                         </th>

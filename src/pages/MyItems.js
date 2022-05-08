@@ -76,17 +76,17 @@ const MyItems = () => {
                 <th scope='col' className='px-6 py-3'>
                   Product name
                 </th>
-                <th scope='col' className='px-6 py-3'>
+                <th scope='col' className='px-6 py-3 hidden md:block'>
                   Price
                 </th>
                 <th scope='col' className='px-6 py-3'>
                   Quantity
                 </th>
-                <th scope='col' className='px-6 py-3'>
+                <th scope='col' className='px-6 py-3 hidden md:block'>
                   user
                 </th>
                 <th scope='col' className='px-6 py-3'>
-                  <span className='sr-only'>Edit</span>
+                  Edit
                 </th>
               </tr>
             </thead>
@@ -100,17 +100,17 @@ const MyItems = () => {
                       >
                         <th
                           scope='row'
-                          className='px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap'
+                          className='px-6 py-4 font-medium text-gray-900 dark:text-white'
                         >
                           {product?.title && product?.title}
                         </th>
-                        <td className='px-6 py-4'>
+                        <td className='px-6 py-4 hidden md:block'>
                           ${product?.price && product?.price}
                         </td>
                         <td className='px-6 py-4'>
                           {product?.quantity && product?.quantity}
                         </td>
-                        <td className='px-6 py-4'>
+                        <td className='px-6 py-4 hidden md:block'>
                           {product?.displayName && product?.displayName}
                         </td>
                         <td className='px-6 py-4 text-right'>
