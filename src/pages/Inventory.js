@@ -22,6 +22,10 @@ const Inventory = () => {
 
   const reduceQuantity = async () => {
     let tempQuantity = products.quantity - 1;
+    if(tempQuantity <0){
+      toast.error("nothing in stock please restock")
+      return
+    }
     try {
       const res = await axios.put(
         `/product/quantity?productId=${products._id}`,
